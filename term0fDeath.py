@@ -6,7 +6,7 @@ WORKING_DIR = os.path.dirname(os.path.realpath(__file__))
 EXPLOIT_PATH = WORKING_DIR + '/exploits/'
 
 username = raw_input("Username to use: ")
-user_name = colored(username+"@termOfDeath", 'red') + colored(':~$ ', 'white')
+user_name = colored(username+"@KICKASS", 'red') + colored(':~$ ', 'white')
 call(["clear"])
 
 while True:
