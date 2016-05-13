@@ -22,19 +22,30 @@ EXPLOIT_PATH = WORKING_DIR + '/exploits/'
 
 def main_menu():
    os.system('clear')
-   
-   print
-   print "<< WELCOME TO KICK-ASS-FRAMEWORK >> \n"
-   print "Please choose :\n"
-   print "1. USE HELP"
-   print "2. SEARCH"
-   print "3. KA-SHELL"
-   print "4. LIST EXPLOITS"
-   print "5. UPDATE"
+   print colored("""
+ ----        -----         ------          ------------
+|    |      /    /        /      \        |            |
+|    |     /    /        /        \       |    --------
+|    |    /    /        /    /\    \      |    |%%%%%%%
+|    |   /    /        /    /%%\    \     |    |
+|     --     /---------     ----     ------    --------
+|     --     \---------     ----     ------    --------
+|    |%%%\    \%%%%% /     /%%%%%\     \  |    |%%%%%%%
+|    |    \    \    /     /       \     \ |    |
+|    |     \    \  /     /         \     \|    |
+|    |      \    \/     /           \     \    |
+|    |       \    \    /             \     \   |
+ ----         -----  --               ------ --
+ %%%%         %%%%%  %%               %%%%%% %%   
+""", 'green')
+   print colored("<< WELCOME TO KICK-ASS-FRAMEWORK >> \n", 'blue')
+   print colored("Modules: " + exploits(), 'yellow')
+   print "1. HELP"
+   print "2. KA-SHELL"
+   print "3. UPDATE"
    print "\n0. QUIT"
-   choice = raw_input(" >>  ")
+   choice = raw_input(">> ")
    exec_menu(choice)
-
    return
 
 # Execute menu
@@ -52,15 +63,13 @@ def exec_menu(choice):
    return
 
 def help():
-   print "USE HELP \n"
+   print """HELP \n
+KAF (KickAssFramework) 1.0.1
+
+Find us: http://kickassugvgoftuk.onion
+"""
    print "\n9. Menu"
-   choice = raw_input(" >>  ")
-   exec_menu(choice)
-   return
- 
-def search():
-   print "SEARCH \n"
-   print "\n9. Menu"
+   print "\n0. Exit"
    choice = raw_input(" >>  ")
    exec_menu(choice)
    return
@@ -74,10 +83,9 @@ def shell():
        command = raw_input(user_name)
        if "help" in command:
            print "KA-Shell help\n"
-           print "use (use exploit)"
+           print "use <exploit_name> (use exploit)"
            print "search <module_name> (search exploit)"
            print "list (list exploits)"
-           print "update (update exploit list)"
            print "exit (quit the shell)\n"
        elif "use" in command:
            remove = ['use', 'search', ' ']
@@ -116,44 +124,54 @@ def shell():
                    continue
            if found == False:
                print colored("[!] The explois list is empty.", 'yellow')
-       elif "update" in command:
-           try:
-               print colored("[+] Checking for updates.", 'yellow')
-               update = urllib2.urlopen('https://raw.githubusercontent.com/c3nt3rX/kaf/master/update.html').read()
-               links = re.split(r"[\[\+\]]", update)
-               for link in links:
-                   if link != "":
-                       filename = link.split('/exploits/', 1)[-1]
-                       filename = filename.replace("\n", "")
-                       print colored("[+] Downloading: " + filename, 'green')
-                       file_to_download = urllib.URLopener()
-                       file_to_download.retrieve(link, filename)
-                       shutil.move(filename, "exploits")
-           except:
-               print colored("[!] An error occured! Please try again later.", 'yellow')
        elif "exit" in command:
            break
        else:
            try:
                call([command])
            except:
-               print colored("[!] Unknown command :-( . Type 'exit' for exiting.", 'yellow')    
+               print colored("[!] Unknown command :-( . Type 'exit' for exiting.", 'yellow')
+               
    print "\n9. Menu"
-   choice = raw_input(" >>  ")
+   choice = raw_input(">>  ")
    exec_menu(choice)
    return
 
 def exploits():
    print "LIST EXPLOITS \n"
+   module_counter = 0
    for file in os.listdir(EXPLOIT_PATH):
-       print "[+] Module name: ", file
-   print "\n9. Menu"
-   choice = raw_input(" >>  ")
-   exec_menu(choice)
-   return
+       module_counter = module_counter + 1
+   return module_counter
 
 def update():
-   print "UPDATE EXPLOITS \n"
+   print "UPDATE KAF\n"
+   try:
+      print colored("[+] Checking for updates.", 'yellow')
+      update = urllib2.urlopen('https://raw.githubusercontent.com/c3nt3rX/kaf/master/update.html').read()
+      links = re.split(r"[\[\+\]]", update)
+      for link in links:
+         if link != "":
+            filename = link.split('/exploits/', 1)[-1]
+            filename = filename.replace("\n", "")
+            print colored("[+] Downloading: " + filename, 'green')
+            file_to_download = urllib.URLopener()
+            file_to_download.retrieve(link, filename)
+            shutil.move(filename, "exploits")
+
+      update = urllib2.urlopen('https://raw.githubusercontent.com/c3nt3rX/kaf/master/update2.html').read()
+      links = re.split(r"[\[\+\]]", update)
+      for link in links:
+         if link != "":
+            filename = link.split('/check/', 1)[-1]
+            filename = filename.replace("\n", "")
+            print colored("[+] Downloading: " + filename, 'green')
+            file_to_download = urllib.URLopener()
+            file_to_download.retrieve(link, filename)
+            shutil.move(filename, "check")
+      print colored("[!] Successfully updated!", 'yellow')
+   except:
+      print colored("[!] An error occured! Please try again later.", 'yellow')
    print "\n9. Menu"
    choice = raw_input(" >>  ")
    exec_menu(choice)
@@ -174,10 +192,8 @@ def exit():
 menu_actions = {
    'main_menu': main_menu,
    '1': help,
-   '2': search,
-   '3': shell,
-   '4': exploits,
-   '5': update,
+   '2': shell,
+   '3': update,
    '9': Menu,
    '0': exit,
 }
