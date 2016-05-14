@@ -10,29 +10,33 @@ import urllib
 import re
 import shutil
 import platform
-import colorama
 
 # Main definition - constants
 menu_actions  = {}  
 
-WORKING_DIR = os.path.dirname(os.path.realpath(__file__))
-EXPLOIT_PATH = WORKING_DIR + '/exploits/' 
-CHECK_PATH = WORKING_DIR + '/check/'
-version = "Version 1.0.10"
-
 OS = platform.system()
+
+WORKING_DIR = os.path.dirname(os.path.realpath(__file__))
+if "Windows" in OS:
+        EXPLOIT_PATH = WORKING_DIR + '\exploits\\' 
+        CHECK_PATH = WORKING_DIR + '\check\\'
+else:
+        EXPLOIT_PATH = WORKING_DIR + '/exploits/' 
+        CHECK_PATH = WORKING_DIR + '/check/'
+        
+version = "Version 1.1.0"
 
 # =======================
 #     MENUS FUNCTIONS
 # =======================
 
 def main_menu():
-  if "Windows" in OS:
-	os.system('cls')
-  else:
-	os.system('clear')
-
-  print colored("""
+        if "Windows" in OS:
+                os.system('cls')
+        else:
+                os.system('clear')
+        
+	print colored("""
  ----        -----         ------          ------------
 |    |      /    /        /      \        |            |
 |    |     /    /        /        \       |    --------
@@ -48,24 +52,24 @@ def main_menu():
  ----         -----  --               ------ --
  %%%%         %%%%%  %%               %%%%%% %%   
 """, 'green')
-  print
-  print colored("<< WELCOME TO KICK-ASS-FRAMEWORK >> \n       " + version  +"\n", 'red')
-  print colored("Please choose :\n", 'white')
-  print "1. HELP"
-  print "2. KAF-SHELL"
-  print "3. LIST EXPLOITS"
-  print "4. UPDATE EXPLOIT DB"
-  print colored("\n0. QUIT", 'white')
-  choice = raw_input(colored(" >> ", 'white'))
-  exec_menu(choice)
-  return
+	print
+	print colored("<< WELCOME TO KICK-ASS-FRAMEWORK >> \n       " + version  +"\n", 'red')
+	print colored("Please choose :\n", 'white')
+	print "1. HELP"
+	print "2. KAF-SHELL"
+	print "3. LIST EXPLOITS"
+	print "4. UPDATE EXPLOIT DB"
+	print colored("\n0. QUIT", 'white')
+	choice = raw_input(colored(" >> ", 'white'))
+	exec_menu(choice)
+	return
 
 # Execute menu
 def exec_menu(choice):
         if "Windows" in OS:
-	  os.system('cls')
+                os.system('cls')
         else:
-	  os.system('clear')
+                os.system('clear')
 	ch = choice.lower()
 	if ch == '':
 		menu_actions['main_menu']()
@@ -87,7 +91,6 @@ def help():
 	print colored("Please choose :\n", 'white')
 	print colored("2. KA-SHELL" , 'white')
 	print colored("9. MENU", 'white')
-	print colored("0. QUIT", 'white')
 	choice = raw_input(" >>  ")
 	exec_menu(choice)
 	return
@@ -95,63 +98,72 @@ def help():
 def shell():
 	print colored("KA-SHELL  \n", 'white')
 	user_name = colored("root", 'red') + colored("@KICKASS", 'blue') + colored(':~$ ', 'white')
-	if "Windows" in OS:
-	  os.system('cls')
-	else:
-	  os.system('clear')	
+        if "Windows" in OS:
+                os.system('cls')
+        else:
+                os.system('clear')
 
-	while True:
-		command = raw_input(user_name)
-		if "h" in command:
-			print colored("\n HELP \n KAF (KickAssFramework) " + version  + "\n Find us: http://kickassugvgoftuk.onion \n", 'white')
-			print " use <module_name> (use exploit)"
-			print " search <module_name> (search exploit)"
-			print " list (list exploits)"
-			print " exit (quit the shell)\n"
-		elif "use" in command:
-			remove = ['use', 'search', ' ']
-			command = command.split()
-			command = ' '.join([i for i in command if i not in remove])
-			if ".py" in command:
-				command = command
-			else:
-				command = command + ".py"
-			found = False
-			for file in os.listdir(EXPLOIT_PATH):
-				if str(command) == str(file):
-					found = True
-					os.system("python exploits/"+command)
-			if found == False:
-				print colored("[!] Cannot find " + command + ". Try search <module_name> ." , 'yellow')
-		elif "search" in command:
-			remove = ['use', 'search', ' ']
-			command = command.split()
-			command = ' '.join([i for i in command if i not in remove])
-			found = False
-			for file in os.listdir(EXPLOIT_PATH):
-				if command in file:
-					print "[+] Module name: ", file
-					found = True
-			if found == False:
-				print colored("[!] No exploits with "+command+" found.", 'yellow')
-		elif "list" in command:
-			basepath = WORKING_DIR+'/exploits'
-			found = False
-			for fname in os.listdir(basepath):
-				path = os.path.join(basepath, fname)
-				print "[+] Module: " + fname
-				found = True
-				if os.path.isdir(path):
-					continue
-			if found == False:
-				print colored("[!] The explois list is empty.", 'yellow')
-		elif "exit" in command:
-			break
-		else:
-			try:
-				call([command])
-			except:
-				print colored("[!] Unknown command :-(", 'red') + colored(" . Type 'help' or 'exit' ", 'yellow')    
+        try:
+                while True:
+                        command = raw_input(user_name)
+                        if "help" in command:
+                                print colored("\n HELP \n KAF (KickAssFramework) " + version  + "\n Find us: http://kickassugvgoftuk.onion \n", 'white')
+                                print " use <module_name> (use exploit)"
+                                print " search <module_name> (search exploit)"
+                                print " list (list exploits)"
+                                print " exit (quit the shell)\n"
+                        elif "use" in command:
+                                remove = ['use', 'search', ' ']
+                                command = command.split()
+                                command = ' '.join([i for i in command if i not in remove])
+                                if ".py" in command:
+                                        command = command
+                                else:
+                                        command = command + ".py"
+                                found = False
+                                for file in os.listdir(EXPLOIT_PATH):
+                                        if str(command) == str(file):
+                                                found = True
+                                                if "Windows" in OS:
+                                                        os.system("exploits\\"+command)
+                                                else:
+                                                        os.system("python exploits/"+command)
+                                if found == False:
+                                        print colored("[!] Cannot find " + command + ". Try search <module_name> ." , 'yellow')
+                        elif "search" in command:
+                                remove = ['use', 'search', ' ']
+                                command = command.split()
+                                command = ' '.join([i for i in command if i not in remove])
+                                found = False
+                                for file in os.listdir(EXPLOIT_PATH):
+                                        if command in file:
+                                                print "[+] Module name: ", file
+                                                found = True
+                                if found == False:
+                                        print colored("[!] No exploits with "+command+" found.", 'yellow')
+                        elif "list" in command:
+                                basepath = WORKING_DIR+'/exploits'
+                                found = False
+                                for fname in os.listdir(basepath):
+                                        path = os.path.join(basepath, fname)
+                                        print "[+] Module: " + fname
+                                        found = True
+                                        if os.path.isdir(path):
+                                                continue
+                                if found == False:
+                                        print colored("[!] The explois list is empty.", 'yellow')
+                        elif "exit" in command:
+                                break
+                        else:
+                                try:
+                                        if "Windows" in OS:
+                                                os.system(command)
+                                        else:
+                                                call([command])
+                                except:
+                                        print colored("[!] Unknown command :-(", 'red') + colored(" . Type 'help' or 'exit' ", 'yellow')
+        except KeyboardInterrupt:
+                print colored("Type exit to quit KAF.", 'yellow')
 	exec_menu("9")
 	return
 
@@ -162,7 +174,6 @@ def exploits():
 	print colored("\nPlease choose :\n", 'white')
 	print colored("2. KA-SHELL" , 'white') 
 	print colored("9. MENU", 'white')
-	print colored("0. QUIT", 'white')
 	choice = raw_input(" >>  ")
 	exec_menu(choice)
 	return
@@ -179,12 +190,12 @@ def update():
 			if link != "":
 				filename = link.split('/exploits/', 1)[-1]
 				filename = filename.replace("\n", "")
-				if not os.path.exists(EXPLOIT_PATH + filename):
+				if not os.path.exists("exploits\\"+filename):
 					try:
 						file_to_download = urllib.URLopener()
 						file_to_download.retrieve(link, filename)
-						print colored("[+] Downloading module: " + filename, 'white')						
-						shutil.move(filename, EXPLOIT_PATH + filename)
+						shutil.move(filename, "exploits")
+						print colored("[+] Downloading module: " + filename, 'blue')
 						found = True
 					except:
 						pass
@@ -194,12 +205,12 @@ def update():
 			if link != "":
 				filename = link.split('/check/', 1)[-1]
 				filename = filename.replace("\n", "")
-				if not os.path.exists(CHECK_PATH + filename):
+				if not os.path.exists("check\\"+filename):
 					try:
 						file_to_download = urllib.URLopener()
 						file_to_download.retrieve(link, filename)
-						print colored("[+] Downloading check: " + filename, 'white')
-						shutil.move(filename, CHECK_PATH + filename)						
+						shutil.move(filename, "check")
+						print colored("[+] Downloading module: " + filename, 'blue')
 						found = True
 					except:
 						pass
@@ -211,9 +222,7 @@ def update():
 	except:
 		print colored("[!] An error occured! Please try again later.", 'yellow') 
 	print colored("Please choose :\n", 'white')
-	print colored("4. UPDATE ONCE MORE", 'white')
 	print colored("9. MENU", 'white')
-	print colored("0. QUIT", 'white')
 	choice = raw_input(" >>  ")
 	exec_menu(choice)
 	return
