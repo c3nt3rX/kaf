@@ -158,7 +158,7 @@ def update():
 	found = False
 	print "\n"
 	try:
-		update = urllib2.urlopen('https://raw.githubusercontent.com/c3nt3rX/kaf/master/update.html').read()
+		update = urllib2.urlopen('https://raw.githubusercontent.com/c3nt3rX/kaf/master/update_exp.html').read()
 		links = re.split(r"[\[\+\]]", update)
 		for link in links:
 			if link != "":
@@ -173,7 +173,7 @@ def update():
 						found = True
 					except:
 						pass
-		update = urllib2.urlopen('https://raw.githubusercontent.com/c3nt3rX/kaf/master/update2.html').read()
+		update = urllib2.urlopen('https://raw.githubusercontent.com/c3nt3rX/kaf/master/update_check.html').read()
 		links = re.split(r"[\[\+\]]", update)
 		for link in links:
 			if link != "":
