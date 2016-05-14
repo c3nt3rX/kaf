@@ -16,7 +16,7 @@ menu_actions  = {}
 WORKING_DIR = os.path.dirname(os.path.realpath(__file__))
 EXPLOIT_PATH = WORKING_DIR + '/exploits/' 
 CHECK_PATH = WORKING_DIR + '/check/'
-version = "Version 1.0.6"
+version = "Version 1.0.7"
 
 # =======================
 #     MENUS FUNCTIONS
