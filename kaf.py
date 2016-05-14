@@ -155,6 +155,7 @@ def exploits():
 def update():
 	print colored("UPDATE EXPLOIT DB \n", 'white')
 	print colored("[+] Checking for updates.", 'yellow')
+	found = False
 	print "\n"
 	try:
 		update = urllib2.urlopen('https://raw.githubusercontent.com/c3nt3rX/kaf/master/update.html').read()
@@ -169,6 +170,7 @@ def update():
 						file_to_download.retrieve(link, filename)
 						shutil.move(filename, "exploits")
 						print colored("[+] Downloading module: " + filename, 'blue')
+						found = True
 					except:
 						pass
 		update = urllib2.urlopen('https://raw.githubusercontent.com/c3nt3rX/kaf/master/update2.html').read()
@@ -183,8 +185,14 @@ def update():
 						file_to_download.retrieve(link, filename)
 						shutil.move(filename, "check")
 						print colored("[+] Downloading module: " + filename, 'blue')
+						found = True
 					except:
 						pass
+
+		if found == True:
+                        print colored("[!] EXPLOIT DB successfully updated.", 'yellow')
+                else:
+                        print colored("[!] There are no new updates. You run the latest exploits.", 'yellow')
 	except:
 		print colored("[!] An error occured! Please try again later.", 'yellow') 
 	print colored("Please choose :\n", 'white')
