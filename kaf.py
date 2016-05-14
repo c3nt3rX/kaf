@@ -9,6 +9,8 @@ import urllib2
 import urllib
 import re
 import shutil
+import platform
+import colorama
 
 # Main definition - constants
 menu_actions  = {}  
@@ -16,14 +18,19 @@ menu_actions  = {}
 WORKING_DIR = os.path.dirname(os.path.realpath(__file__))
 EXPLOIT_PATH = WORKING_DIR + '/exploits/' 
 CHECK_PATH = WORKING_DIR + '/check/'
-version = "Version 1.0.8"
+version = "Version 1.0.9"
+
+OS = platform.system()
 
 # =======================
 #     MENUS FUNCTIONS
 # =======================
 
 def main_menu():
-	os.system('clear')
+        if "Windows" in OS:
+                os.system('cls')
+        else:
+                os.system('clear')
 
 	print colored("""
  ----        -----         ------          ------------
@@ -55,7 +62,10 @@ def main_menu():
 
 # Execute menu
 def exec_menu(choice):
-	os.system('clear')
+        if "Windows" in OS:
+                os.system('cls')
+        else:
+                os.system('clear')
 	ch = choice.lower()
 	if ch == '':
 		menu_actions['main_menu']()
@@ -77,7 +87,6 @@ def help():
 	print colored("Please choose :\n", 'white')
 	print colored("2. KA-SHELL" , 'white')
 	print colored("9. MENU", 'white')
-	print colored("0. QUIT", 'white')
 	choice = raw_input(" >>  ")
 	exec_menu(choice)
 	return
@@ -85,7 +94,10 @@ def help():
 def shell():
 	print colored("KA-SHELL  \n", 'white')
 	user_name = colored("root", 'red') + colored("@KICKASS", 'blue') + colored(':~$ ', 'white')
-	call(["clear"])
+        if "Windows" in OS:
+                os.system('cls')
+        else:
+                os.system('clear')
 
 	while True:
 		command = raw_input(user_name)
@@ -107,7 +119,10 @@ def shell():
 			for file in os.listdir(EXPLOIT_PATH):
 				if str(command) == str(file):
 					found = True
-					os.system("python exploits/"+command)
+					if "Windows" in OS:
+                                                os.system("exploits\\"+command)
+                                        else:
+                                                os.system("python exploits/"+command)
 			if found == False:
 				print colored("[!] Cannot find " + command + ". Try search <module_name> ." , 'yellow')
 		elif "search" in command:
@@ -136,7 +151,10 @@ def shell():
 			break
 		else:
 			try:
-				call([command])
+				if "Windows" in OS:
+                                        os.system(command)
+                                else:
+                                        call([command])
 			except:
 				print colored("[!] Unknown command :-(", 'red') + colored(" . Type 'help' or 'exit' ", 'yellow')    
 	exec_menu("9")
@@ -149,7 +167,6 @@ def exploits():
 	print colored("\nPlease choose :\n", 'white')
 	print colored("2. KA-SHELL" , 'white') 
 	print colored("9. MENU", 'white')
-	print colored("0. QUIT", 'white')
 	choice = raw_input(" >>  ")
 	exec_menu(choice)
 	return
@@ -166,12 +183,12 @@ def update():
 			if link != "":
 				filename = link.split('/exploits/', 1)[-1]
 				filename = filename.replace("\n", "")
-				if not os.path.exists(EXPLOIT_PATH + filename):
+				if not os.path.exists("exploits\\"+filename):
 					try:
 						file_to_download = urllib.URLopener()
 						file_to_download.retrieve(link, filename)
-						print colored("[+] Downloading module: " + filename, 'white')						
-						shutil.move(filename, EXPLOIT_PATH + filename)
+						shutil.move(filename, "exploits")
+						print colored("[+] Downloading module: " + filename, 'blue')
 						found = True
 					except:
 						pass
@@ -181,12 +198,12 @@ def update():
 			if link != "":
 				filename = link.split('/check/', 1)[-1]
 				filename = filename.replace("\n", "")
-				if not os.path.exists(CHECK_PATH + filename):
+				if not os.path.exists("check\\"+filename):
 					try:
 						file_to_download = urllib.URLopener()
 						file_to_download.retrieve(link, filename)
-						print colored("[+] Downloading check: " + filename, 'white')
-						shutil.move(filename, CHECK_PATH + filename)						
+						shutil.move(filename, "check")
+						print colored("[+] Downloading module: " + filename, 'blue')
 						found = True
 					except:
 						pass
@@ -198,9 +215,7 @@ def update():
 	except:
 		print colored("[!] An error occured! Please try again later.", 'yellow') 
 	print colored("Please choose :\n", 'white')
-	print colored("4. UPDATE ONCE MORE", 'white')
 	print colored("9. MENU", 'white')
-	print colored("0. QUIT", 'white')
 	choice = raw_input(" >>  ")
 	exec_menu(choice)
 	return
