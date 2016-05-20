@@ -24,7 +24,7 @@ else:
    EXPLOIT_PATH = WORKING_DIR + '/exploits/'
    CHECK_PATH = WORKING_DIR + '/check/'
 
-version = "Version 1.1.0"
+version = "Version 1.1.1"
 
 # =======================
 #     MENUS FUNCTIONS
@@ -117,18 +117,33 @@ def shell():
                remove = ['use', 'search', ' ']
                command = command.split()
                command = ' '.join([i for i in command if i not in remove])
-               if ".py" in command:
-                   command = command
-               else:
-                   command = command + ".py"
+               exploit_name, exploit_extension = os.path.splitext(command)
                found = False
                for file in os.listdir(EXPLOIT_PATH):
                    if str(command) == str(file):
                        found = True
                        if "Windows" in OS:
-                           os.system("exploits\\"+command)
+                          if exploit_extension == ".py" or exploit_extension == ".pl" or exploit_extension == ".rb":
+                             os.system("exploits\\"+command)
+                          elif exploit_extension == ".c":
+                             os.system("cl " + command)
+                             os.system(exploit_name)
+                          elif exploit_extension == ".cpp":
+                             os.system("gcc -o " + exploit_name + " " + command)
+                             os.system(exploit_name)
                        else:
-                           os.system("python exploits/"+command)
+                          if exploit_extension == ".py":
+                             os.system("python exploits/"+command)
+                          elif exploit_extension == ".pl":
+                             os.system("perl exploits/"+command)
+                          elif exploit_extension == ".rb":
+                             os.system("ruby exploits/"+command)
+                          elif exploit_extension == ".c":
+                             os.system("gcc -o " + exploit_name + " " + command)
+                             os.system("./"+exploit_name)
+                          elif exploit_extension == ".cpp":
+                             os.system("g++ -o " + exploit_name + " " + command)
+                             os.system("./"+exploit_name)
                if found == False:
                    print colored("[!] Cannot find " + command + ". Try search <module_name> ." , 'yellow')
            elif "search" in command:
