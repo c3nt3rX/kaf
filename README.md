@@ -1,8 +1,13 @@
 
-KAF (KickAssFramework)<br>
-Find us: http://kickassugvgoftuk.onion
+# **KAF (KickAssFramework)**
+- Find us: http://kickassugvgoftuk.onion
 
-KAF Menu:
+## Disclaimer
+- Currently pre-alpha software; under heavy development
+- Use branch ```master``` for most stability
+- See branch ```development``` for most recent activity
+
+## KAF Menu:
 
 1. HELP
 2. KAF-SHELL
@@ -10,11 +15,11 @@ KAF Menu:
 4. UPDATE EXPLOIT DB
 0. QUIT
 
-KAF-Shell: 
-    
-*commands in KA-SHELL
-<br><br> 
-    use <module_name> (use exploit)<br>
-    search <module_name> (search exploit)<br>
-    list (list exploits)<br>
-    exit (quit the shell)<br>
+## Developers
+- KA [Forum](http://kickassugvgoftuk.onion) members
+
+## Donations
+- Donations to ```19f5mCtUATBpaPjNVJhkknXGqb16cCoFe5``` help KAF with your donations
+
+## Vulnerability Response
+- Please, post a report to [KAF Wiki](http://git.psii2p655trtnvru.onion/KICKASS/KAF/wiki)
