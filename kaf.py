@@ -48,10 +48,9 @@ def main_menu():
    print colored( banner,'red')
    print
    print colored("Please choose :\n", 'white')
-   print "1. HELP"
+   print "1. MAIN HELP"
    print "2. KAF-SHELL"
-   print "3. LIST EXPLOITS"
-   print "4. UPDATE EXPLOIT DB"
+   print "3. UPDATE EXPLOIT DB"
    print colored("\n0. QUIT", 'white')
    choice = raw_input(colored(" >> ", 'white'))
    exec_menu(choice)
@@ -101,7 +100,8 @@ def shell():
       while True:
          command = raw_input(user_name)
          if "help" in command:
-            print colored("\n HELP \n KAF (KickAssFramework) " + version  + "\n Find us: http://kickassugvgoftuk.onion \n", 'white')
+            print colored("\n KA SHELL HELP \n", 'white')
+            print " *commands in KA-SHELL \n"
             print " use <module_name> (use exploit)"
             print " search <module_name> (search exploit)"
             print " list (list exploits)"
@@ -232,7 +232,7 @@ def update():
    except:
       print colored("[!] An error occured! Please try again later.", 'yellow')
    print colored("Please choose :\n", 'white')
-   print colored("4. UPDATE ONCE MORE", 'white')
+   print colored("3. UPDATE ONCE MORE", 'white')
    print colored("9. MENU", 'white')
    print colored("0. QUIT", 'white')
    choice = raw_input(" >>  ")
@@ -255,8 +255,7 @@ menu_actions = {
    'main_menu': main_menu,
    '1': help,
    '2': shell,
-   '3': exploits,
-   '4': update,
+   '3': update,
    '9': Menu,
    '0': exit,
 }

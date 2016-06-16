@@ -4,16 +4,20 @@
 
 ## Disclaimer
 - Currently pre-alpha software; under heavy development
-- Use branch ```master``` for most stability
-- See branch ```development``` for most recent activity
 
 ## KAF Menu:
 
 1. HELP
 2. KAF-SHELL
-3. LIST EXPLOITS
-4. UPDATE EXPLOIT DB
+3. UPDATE EXPLOIT DB
 0. QUIT
+
+## KAF Shell Commnds
+
+- use module_name ```use exploit```
+- search module_name ```search exploit```
+- list ```list exploits```
+- exit ```quit the shell```
 
 ## Developers
 - KA [Forum](http://kickassugvgoftuk.onion) members
