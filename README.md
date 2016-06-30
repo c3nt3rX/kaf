@@ -23,7 +23,7 @@
 - KA [Forum](http://kickassugvgoftuk.onion) members
 
 ## Donations
-- Donations to ```19f5mCtUATBpaPjNVJhkknXGqb16cCoFe5``` help KAF with your donations
+- Donations to ```1P4FKeeqL4kmxNjmyGRhnFPmsRTmPQdMtz``` help KAF with your donations
 
 ## Vulnerability Response
 - Please, post a report to [KAF Wiki](http://git.psii2p655trtnvru.onion/KICKASS/KAF/wiki)
